@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NotesApp.AddNotePage"
+             Title="AddNotePage">
+    <VerticalStackLayout Background="Black" Spacing="30">
+        <Label 
+            Text="What Would you Like to Note"
+            FontSize="Header"
+            HorizontalOptions="Center" />
+
+        <VerticalStackLayout HeightRequest="500" VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+            <Entry x:Name="NoteTitleEntry" Placeholder="Add the Title of your Note here" WidthRequest="400"/>
+
+            <Entry x:Name="NoteDescriptionEntry" Placeholder="Enter Your Note Description" WidthRequest="400" HeightRequest="200"/>
+
+            <Button Text="Add Note" WidthRequest="200" Clicked="AddNoteClicked"/>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+    
+    
+    
+</ContentPage>
