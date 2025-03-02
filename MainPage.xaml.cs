@@ -18,6 +18,7 @@ namespace NotesApp
         {
             InitializeComponent();
             LoadNotes();
+            NotesListView.ItemsSource = newNotes;
         }
 
         private async void LoadNotes()
@@ -33,14 +34,31 @@ namespace NotesApp
         private async void AddNoteMenuClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AddNotePage());
+            /*newNotes.Clear();
+            await database.DeleteAllAsync();*/
 
         }
 
-
-        private async void ViewNoteClicked(object sender, EventArgs e)
+        private async void OnClickDeleteNote(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ViewNotes());
+            if (sender is Button button && button.BindingContext is NoteItem noteToDelete)
+            {
+                bool confirm = await DisplayAlert("Delete", $"Delete '{noteToDelete.Title}'?", "Yes", "No");
+                if (confirm)
+                {
+                    await database.DeleteNotesAsync(noteToDelete);
+                    newNotes.Remove(noteToDelete);
+                }
+            }
         }
+
+        private async void OnClickViewNote(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddNotePage());
+        }
+
+
+        
     }
 
 }

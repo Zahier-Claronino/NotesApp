@@ -27,11 +27,17 @@ public partial class AddNotePage : ContentPage
     {
         if (!string.IsNullOrEmpty(NoteTitleEntry.Text))
         {
-            var newNote = new NoteItem { Title = NoteTitleEntry.Text, Content = NoteDescriptionEntry.Text };
+            DateTime now = DateTime.Now;
+            var newNote = new NoteItem { Title = NoteTitleEntry.Text, Content = NoteDescriptionEntry.Text, Date = now };
             await database.AddNotesAsync(newNote);
             newNotes.Add(newNote);
-            NoteTitleEntry.Text = "";
-            NoteDescriptionEntry.Text = "";
+            
+
+            await DisplayAlert("Success", "Note saved successfully", "Ok");
+
+            await Navigation.PushAsync(new MainPage());
+
+
         }
     }
 }

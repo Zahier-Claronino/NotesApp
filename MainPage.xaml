@@ -7,7 +7,7 @@
         <VerticalStackLayout
             Padding="40"
             Spacing="40"
-            BackgroundColor="DarkSlateGray">
+            BackgroundColor="Black">
 
             <Label Text="Notes" 
                    FontSize="Header"
@@ -15,10 +15,41 @@
 
 
             
-            <VerticalStackLayout HeightRequest="300" VerticalOptions="Center" HorizontalOptions="Center" Spacing="10" >
+            <VerticalStackLayout  VerticalOptions="Center" HorizontalOptions="FillAndExpand" Spacing="10" >
                 <Button Text="Add Note" BackgroundColor="LightBlue" TextColor="Black" WidthRequest="200" HorizontalOptions="Center"  Clicked="AddNoteMenuClicked"/>
-                <Button Text="View Notes" BackgroundColor="LightBlue" TextColor="Black" WidthRequest="200" HorizontalOptions="Center"  Clicked="ViewNoteClicked"/>
+                <BoxView HeightRequest="2" BackgroundColor="White" />
+                
             </VerticalStackLayout>
+
+            <ListView x:Name="NotesListView" RowHeight="250" WidthRequest="140" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="250">
+
+
+                            <VerticalStackLayout >
+                                <Button Text="{Binding Content}" 
+                                    WidthRequest="140" 
+                                    HeightRequest="160"
+                                    FontSize="13" 
+                                    TextColor="White" 
+                                    VerticalOptions="Start"
+                                        HorizontalOptions="FillAndExpand"
+                                        LineBreakMode="WordWrap" Clicked="OnClickViewNote"/>
+            
+                                <Label Text="{Binding Title}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding Date}" HorizontalOptions="Center"/>
+                                <Button Text="Delete" WidthRequest="100" HeightRequest="36" BackgroundColor="white" TextColor="Black" Clicked="OnClickDeleteNote"/>
+                            </VerticalStackLayout>
+                            
+                            
+   
+                            
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
             
         </VerticalStackLayout>
     </ScrollView>

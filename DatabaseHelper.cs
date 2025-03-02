@@ -40,6 +40,11 @@ namespace NotesApp
             return database.UpdateAsync(notes);
         }
 
+        public Task<int> DeleteAllAsync()
+        {
+            return database.DeleteAllAsync<NoteItem>();
+        }
+
 
 
     }
