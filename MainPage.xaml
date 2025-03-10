@@ -5,8 +5,8 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Padding="40"
-            Spacing="40"
+            Padding="0"
+            Spacing="2"
             BackgroundColor="Black">
 
             <Label Text="Notes" 
@@ -15,42 +15,45 @@
 
 
             
-            <VerticalStackLayout  VerticalOptions="Center" HorizontalOptions="FillAndExpand" Spacing="10" >
+            <VerticalStackLayout  VerticalOptions="Center" HorizontalOptions="FillAndExpand" Spacing="2" >
                 <Button Text="Add Note" BackgroundColor="LightBlue" TextColor="Black" WidthRequest="200" HorizontalOptions="Center"  Clicked="AddNoteMenuClicked"/>
                 <BoxView HeightRequest="2" BackgroundColor="White" />
                 
             </VerticalStackLayout>
 
-            <ListView x:Name="NotesListView" RowHeight="250" WidthRequest="140" >
-                <ListView.ItemTemplate>
+
+            <CollectionView x:Name="NotesCollectionView" ItemsSource="{Binding newNotes}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Height="250">
+                        <Frame Padding="2" Margin="10" BackgroundColor="Black" HasShadow="False" BorderColor="Transparent" HorizontalOptions="FillAndExpand">
 
 
-                            <VerticalStackLayout >
+
+                            <VerticalStackLayout   Spacing="2"   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                                 <Button Text="{Binding Content}" 
-                                    WidthRequest="140" 
-                                    HeightRequest="160"
+                                    WidthRequest="180" 
+                                    HeightRequest="220"
                                     FontSize="13" 
                                     TextColor="White" 
                                     VerticalOptions="Start"
                                         HorizontalOptions="FillAndExpand"
-                                        LineBreakMode="WordWrap" Clicked="OnClickViewNote"/>
-            
-                                <Label Text="{Binding Title}" HorizontalOptions="Center"/>
-                                <Label Text="{Binding Date}" HorizontalOptions="Center"/>
+                                        LineBreakMode="WordWrap" Clicked="OnClickViewNote"
+                                        BackgroundColor="DarkSlateGrey"
+                                        CornerRadius="20"/>
+
+                                <Label Text="{Binding Title}" HorizontalOptions="Center" TextColor="White"/>
+                                <Label Text="{Binding Date}" HorizontalOptions="Center" TextColor="White"/>
                                 <Button Text="Delete" WidthRequest="100" HeightRequest="36" BackgroundColor="white" TextColor="Black" Clicked="OnClickDeleteNote"/>
                             </VerticalStackLayout>
                             
-                            
-   
-                            
-                        </ViewCell>
+                        </Frame>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            
-            
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+             
         </VerticalStackLayout>
     </ScrollView>
 

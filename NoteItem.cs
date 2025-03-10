@@ -10,20 +10,13 @@ using SQLite;
 
 namespace NotesApp
 {
-    public  class NoteItem : INotifyPropertyChanged
+    public  class NoteItem
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string? Title { get; set; }
         public string? Content   { get; set; }
         public DateTime Date { get; set; }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         
     }

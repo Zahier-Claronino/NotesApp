@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NotesApp.AddNotePage"
-             Title="">
+             x:Class="NotesApp.ViewNotePage"
+             Title="ViewNotePage">
 
     <ContentPage.ToolbarItems>
 
-        <ToolbarItem Text="Save Note"  Clicked="AddNoteClicked"/>
+        <ToolbarItem Text="Save"  Clicked="UpdateNoteClicked"/>
     </ContentPage.ToolbarItems>
-    <VerticalStackLayout Background="Black" Spacing="30">
+    <VerticalStackLayout BackgroundColor="Black">
         <Label 
             Text="What Would you Like to Note"
             FontSize="Header"
@@ -16,15 +16,12 @@
             TextColor="White"/>
         <ScrollView>
             <VerticalStackLayout HeightRequest="500" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Spacing="10">
-                <Entry x:Name="NoteTitleEntry" Placeholder="Add the Title of your Note here" TextColor="White"/>
+                <Entry x:Name="TitleLabel" Placeholder="Add the Title of your Note here" TextColor="White"/>
 
-                <Editor x:Name="NoteDescriptionEntry" Placeholder="Enter Your Note Description"  VerticalOptions="FillAndExpand" AutoSize="TextChanges" HeightRequest="700" TextColor="White"/>
+                <Editor x:Name="DescriptionLabel" Placeholder="Enter Your Note Description"  VerticalOptions="FillAndExpand" AutoSize="TextChanges" HeightRequest="700" TextColor="White"/>
 
-                
+
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>
-    
-    
-    
 </ContentPage>

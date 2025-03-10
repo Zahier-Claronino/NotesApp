@@ -5,23 +5,29 @@ namespace NotesApp;
 
 public partial class AddNotePage : ContentPage
 {
-    private readonly DatabaseHelper database = new DatabaseHelper();
-    private ObservableCollection<NoteItem> newNotes = new ObservableCollection<NoteItem>();
-    public AddNotePage()
+    private DatabaseHelper database;
+    private NotesViewModel viewModel;
+
+    private NoteItem noteToEdit;
+
+    
+    public AddNotePage(NoteItem? note = null)
 	{
 		InitializeComponent();
-        LoadNotes();
-	}
+        database = new DatabaseHelper();
+        viewModel = new NotesViewModel();
 
-    private async void LoadNotes()
-    {
-        var noteList = await database.GetNotesAsync();
-        newNotes.Clear();
-        foreach (var note in noteList)
+        if (note != null)
         {
-            newNotes.Add(note);
+            noteToEdit = note;
+            NoteTitleEntry.Text = note.Title;
+            NoteDescriptionEntry.Text = note.Content;
         }
+
+
+
     }
+
 
     private async void AddNoteClicked(object sender, EventArgs e)
     {
@@ -30,13 +36,12 @@ public partial class AddNotePage : ContentPage
             DateTime now = DateTime.Now;
             var newNote = new NoteItem { Title = NoteTitleEntry.Text, Content = NoteDescriptionEntry.Text, Date = now };
             await database.AddNotesAsync(newNote);
-            newNotes.Add(newNote);
+            viewModel.newNotes.Add(newNote);
             
 
             await DisplayAlert("Success", "Note saved successfully", "Ok");
 
             await Navigation.PushAsync(new MainPage());
-
 
         }
     }

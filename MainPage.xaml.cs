@@ -6,30 +6,37 @@ using Microsoft.Maui.Storage;
 using System;
 
 using NotesApp;
+using System.Security.Cryptography.X509Certificates;
 
 namespace NotesApp
 {
     public partial class MainPage : ContentPage
     {
-        private readonly DatabaseHelper database = new DatabaseHelper();    
-        private ObservableCollection<NoteItem> newNotes = new ObservableCollection<NoteItem>();
+        private NotesViewModel viewModel = new NotesViewModel();
+        private DatabaseHelper database = new DatabaseHelper();
+ 
 
         public MainPage()
         {
+            
             InitializeComponent();
-            LoadNotes();
-            NotesListView.ItemsSource = newNotes;
+
+            viewModel = new NotesViewModel();
+            BindingContext = viewModel;
+            NotesCollectionView.ItemsSource = viewModel.newNotes;
+
+            database = new DatabaseHelper();
+
+
+
+        }
+        protected override bool OnBackButtonPressed()
+        {
+            // Exit the application when back button is pressed on MainPage
+            Application.Current.Quit();
+            return true; // Indicate that the back button press has been handled
         }
 
-        private async void LoadNotes()
-        {
-            var noteList = await database.GetNotesAsync();
-            newNotes.Clear();
-            foreach(var note in noteList)
-            {
-                newNotes.Add(note);
-            }
-        }
 
         private async void AddNoteMenuClicked(object sender, EventArgs e)
         {
@@ -47,14 +54,17 @@ namespace NotesApp
                 if (confirm)
                 {
                     await database.DeleteNotesAsync(noteToDelete);
-                    newNotes.Remove(noteToDelete);
+                    viewModel.newNotes.Remove(noteToDelete);
                 }
             }
         }
 
         private async void OnClickViewNote(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AddNotePage());
+            if (sender is Button button && button.BindingContext is NoteItem noteToView)
+            {
+                await Navigation.PushAsync(new ViewNotePage(noteToView));
+            }
         }
 
 
